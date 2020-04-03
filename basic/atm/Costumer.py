@@ -1,4 +1,4 @@
-class Costumer:
+class Costumer(object):
 
     def __init__(self, ID, password, starting_balance):
         self.__ID = ID
