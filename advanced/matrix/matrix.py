@@ -127,6 +127,16 @@ class Matrix:
         return False
 
     @classmethod
+    def unity(cls, size):
+        matrix_list = []
+        matrix_zeros = "0" * size
+        [matrix_list.append(tuple(matrix_zeros[0:i] + '1' + matrix_zeros[i:-1]))
+         for i in range(0, size)]
+
+        unity_mat = Matrix(tuple(matrix_list))
+        return unity_mat
+    
+    @classmethod
     def ones(cls, size):
         matrix_list = []
         matrix_ones = tuple("1" * size)
@@ -136,12 +146,3 @@ class Matrix:
         ones_mat = Matrix(tuple(matrix_list))
         return ones_mat
 
-    @classmethod
-    def unity(cls, size):
-        matrix_list = []
-        matrix_zeros = "0" * size
-        [matrix_list.append(tuple(matrix_zeros[0:i] + '1' + matrix_zeros[i:-1]))
-         for i in range(0, size)]
-
-        unity_mat = Matrix(tuple(matrix_list))
-        return unity_mat
