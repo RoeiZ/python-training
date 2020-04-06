@@ -21,18 +21,25 @@ def close_ATM(PATH, dictionary):
         new_db.write(new_costumers_info)
     print("Bye bye!")
 
-def atm_options(user_choice,costumer):
+
+def atm_options(user_choice, costumer):
     switcher = {
-        '1': print("Your balance is {} $".format(costumer.get_balance())),
-        '2': withdraw(costumer),
-        '3': deposit(costumer),
-        '4': change_password(costumer)
+        '1': print_balance,
+        '2': withdraw,
+        '3': deposit,
+        '4': change_password
     }
-    return switcher.get(user_choice, 'Invalid')
+    return switcher[user_choice](costumer)
+
+
+def print_balance(costumer):
+    print("Your balance is {} $".format(costumer.get_balance()))
+
 
 def change_password(costumer):
     new_password = input("Enter your new password: \n")
     costumer.set_password(new_password)
+
 
 def withdraw(costumer):
     money_to_withdraw = int(input("How much money do you want to withdrawl? \n"))
@@ -41,15 +48,16 @@ def withdraw(costumer):
         return
 
     if money_to_withdraw >= costumer.get_balance():
-        answer = input("Pay attention that you are going to minus, do you still want to continue y/n 12")
+        answer = input("Pay attention that you are going to minus, do you still want to continue y/n \n")
         if answer == 'n':
             return
         elif answer != 'y':
             print("Invalid value.")
             return
-        else:
-           new_balance = costumer.get_balance() - money_to_withdraw
-           costumer.set_balance(new_balance)
+    else:
+        new_balance = costumer.get_balance() - money_to_withdraw
+        costumer.set_balance(new_balance)
+
 
 def deposit(costumer):
     money_to_deposit = int(input("How much money do you want to diposit? \n"))
@@ -60,6 +68,7 @@ def deposit(costumer):
     new_balance = costumer.get_balance() + money_to_deposit
     costumer.set_balance(new_balance)
     return
+
 
 def main():
     costumer_db = open(PATH, 'r')
