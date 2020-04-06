@@ -1,4 +1,4 @@
-class Matrix:
+class Matrix(objcet):
 
     def __init__(self, matrix_values):
         self._tuples = matrix_values
